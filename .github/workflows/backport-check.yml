@@ -40,6 +40,11 @@ jobs:
           git remote add prrepo https://github.com/${{ github.event.pull_request.head.repo.full_name }}.git
           git fetch prrepo ${{ github.event.pull_request.head.ref }}
 
+      - name: Set git identity
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
       - name: Attempt cherry-pick of PR commits
         if: ${{ steps.extract.outputs.version != '' }}
         run: |
